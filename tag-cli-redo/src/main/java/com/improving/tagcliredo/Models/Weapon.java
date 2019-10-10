@@ -4,7 +4,7 @@ public class Weapon {
 
     private String name;
     private String area;
-    private String itemType;
+    private String itemType = "weapon";
 
     public Weapon(String name, String area, String itemType){
 
@@ -21,7 +21,6 @@ public class Weapon {
         return area;
     }
 
-    public String getItemType() {
-        return itemType;
+    public String getItemType() {return itemType;
     }
 }
