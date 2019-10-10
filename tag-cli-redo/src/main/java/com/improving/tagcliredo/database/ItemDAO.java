@@ -22,10 +22,13 @@ public class ItemDAO {
         //Create Operation
         public boolean insertItem(Item item){
             try {
-                int rowsAffected = jdbcTemplate.update("INSERT INTO Item(Name, Weight, Value, Burnable, MagicQuality) values('"+
-                        item.getName()  + "'," + item.getWeight() + ","
-                        + item.getValue() + "," +item.getBurnable() + ",'"+
-                        item.getMagicQuality()+"')");
+//                int rowsAffected = jdbcTemplate.update("INSERT INTO Item(Name, Weight, Value, Burnable, MagicQuality) values('"+
+//                        item.getName()  + "'," + item.getWeight() + ","
+//                        + item.getValue() + "," +item.getBurnable() + ",'"+
+//                        item.getMagicQuality()+"')");
+                int rowsAffected = jdbcTemplate.update("INSERT INTO Emote(Name, Weight, Value, Burnable, MagicQuality) " +
+                        "values(?, ?, ?, ?, ?)", item.getName(), item.getWeight(), item.getValue(),
+                        item.getBurnable(),item.getMagicQuality());
 
                 System.out.println("Rows Affected: " + rowsAffected);
                 return true;

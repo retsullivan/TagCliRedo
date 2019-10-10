@@ -26,8 +26,14 @@ public class WeaponDAO {
     //Create Operation
     public boolean insertWeapon(Weapon weapon){
         try {
-            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('"
-                    + weapon.getName()+ "','" +weapon.getArea() + "','weapon')");
+//            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('"
+//                    + weapon.getName()+ "','" +weapon.getArea() + "','weapon')");
+
+            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values(?, ?, ?)",
+                    weapon.getName(), weapon.getArea(), "weapon");
+
+
+
             logger.info("Rows Affected : {}", rowsAffected);
             return true;
         } catch(DataAccessException e){
@@ -48,7 +54,7 @@ public class WeaponDAO {
                                     result.getString("Area"),
                                     result.getString("ItemType")));
 
-            weapons.forEach(weapon -> logger.info("Name: {}, Area{}", weapon.getName(), weapon.getArea()));
+            weapons.forEach(weapon -> logger.info("Name: {}, Area: {}", weapon.getName(), weapon.getArea()));
             if (weapons.size()==0){
                 return null;
             }

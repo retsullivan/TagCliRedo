@@ -23,8 +23,7 @@ public class EmoteDAO { //Emote DataAccess Object
     //Create Operation
     public boolean insertEmote(Emote emote){
         try {
-            int rowsAffected = jdbcTemplate.update("INSERT INTO Emote(Name, Message) values('"+
-                    emote.getName()  + "','" + emote.getMessage() + "')");
+            int rowsAffected = jdbcTemplate.update("INSERT INTO Emote(Name, Message) values(?, ?)", emote.getName(), emote.getMessage());
             System.out.println("Rows Affected: " + rowsAffected);
             return true;
         } catch(DataAccessException e){
