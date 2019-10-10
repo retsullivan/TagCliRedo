@@ -1,5 +1,6 @@
 package com.improving.tagcliredo.database;
 
+import com.improving.tagcliredo.Models.Emote;
 import com.improving.tagcliredo.Models.Weapon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,23 +20,30 @@ public class DatabaseClient {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void insertIntoTable() {
+    public void insertEmote(Emote emote){
         try {
-            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('Smallish Dagger','Dagger Shop', 'weapon')");
+            int rowsAffected = jdbcTemplate.update("INSERT INTO Emote(Name, Message) values('"+
+                    emote.getName()  + "','" + emote.getMessage() + "')");
             logger.info("Rows Affected : {}", rowsAffected);
         } catch(DataAccessException e){
             logger.error("Exception throw in jbdc: ", e);
         }
+
+
     }
 
+//    public void insertIntoTable() { //insertweapon
+//        try {
+//            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('Smallish Dagger','Dagger Shop', 'weapon')");
+//            logger.info("Rows Affected : {}", rowsAffected);
+//        } catch(DataAccessException e){
+//            logger.error("Exception throw in jbdc: ", e);
+//        }
+//    }
+
     public void readFromTable() {
+
         try {
-
-        //List<String> names = jdbcTemplate.query("SELECT * FROM weapon LIMIT 10",
-        //(result, rowNum) ->
-        //result.getString("Area"));
-        //using a lambda function that maps the result to it's row number to get the area
-
         List<Weapon> weapons = jdbcTemplate.query("SELECT * FROM weapon LIMIT 10",
              (result, rowNum) ->
                         new Weapon(result.getInt("Id"),
@@ -48,5 +56,8 @@ public class DatabaseClient {
         } catch(DataAccessException e){
             logger.error("Exception throw in jbdc: ", e);
         }
+
+
+
     }
 }

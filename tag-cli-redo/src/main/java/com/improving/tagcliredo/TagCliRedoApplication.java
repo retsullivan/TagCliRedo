@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TagCliRedoApplication implements CommandLineRunner {
 
-    private final DatabaseClient databaseClient;
+    private final TagCliController tagCliController;
 
-    public TagCliRedoApplication(DatabaseClient databaseClient) {
-        this.databaseClient = databaseClient;
+    public TagCliRedoApplication(TagCliController tagCliController) {
+        this.tagCliController = tagCliController;
     }
 
     public static void main(String[] args) {
@@ -21,20 +21,7 @@ public class TagCliRedoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        databaseClient.insertIntoTable();
-
-        databaseClient.readFromTable();
-
-        //	Class.forName("com.mysql.jdbc.Driver").newInstance();
-        //newInstance is crossed out because it's deprecated
-        //standardized way to connect to database
-        // ODBC  OPEN Data Base Connector
-        // jdbj is the java proprietary version
-        //System.out.println("Hello Ms. World");
-
-//		OldSkoolDatabaseClient client = new OldSkoolDatabaseClient();
-//		client.insertRecordIntoDatabase();
-//		client.readRecordFromDatabase();
+        tagCliController.inputProcesser();
 
     }
 }
