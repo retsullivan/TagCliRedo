@@ -1,6 +1,7 @@
 package com.improving.tagcliredo;
 
 import com.improving.tagcliredo.Models.Emote;
+import com.improving.tagcliredo.Models.Weapon;
 import com.improving.tagcliredo.database.DatabaseClient;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ public class TagCliController {
     String tableType;
     String emoteName;
     String emoteMessage;
+    String weaponName;
+    String weaponArea;
 
 
     public TagCliController(DatabaseClient databaseClient) {
@@ -41,9 +44,18 @@ public class TagCliController {
                         emoteMessage = scanner.nextLine();
                         Emote emote = new Emote(emoteName, emoteMessage);
                         databaseClient.insertEmote(emote);
+                        System.out.println(emote.getName() + ":"+ emote.getMessage()
+                                + "added to the table");
 
                     } else if(tableType.equalsIgnoreCase("2")){
-                        System.out.println("Weapon class not modified yet");
+                        System.out.println("What is the name of the weapon?");
+                        weaponName = scanner.nextLine();
+                        System.out.println("What is the area");
+                        weaponArea = scanner.nextLine();
+                        Weapon weapon = new Weapon(weaponName, weaponArea, "weapon");
+                        databaseClient.insertWeapon(weapon);
+                        System.out.println("Weapon: " + weapon.getName() + ": "+ weapon.getArea()
+                                + "added to the table");
                     } else {
                         System.out.println("Invalid table name");
                     }

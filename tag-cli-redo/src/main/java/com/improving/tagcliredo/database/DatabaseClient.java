@@ -28,30 +28,29 @@ public class DatabaseClient {
         } catch(DataAccessException e){
             logger.error("Exception throw in jbdc: ", e);
         }
-
-
     }
 
-//    public void insertIntoTable() { //insertweapon
-//        try {
-//            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('Smallish Dagger','Dagger Shop', 'weapon')");
-//            logger.info("Rows Affected : {}", rowsAffected);
-//        } catch(DataAccessException e){
-//            logger.error("Exception throw in jbdc: ", e);
-//        }
-//    }
+    public void insertWeapon(Weapon weapon) { //insertweapon
+        try {
+            int rowsAffected = jdbcTemplate.update("INSERT INTO weapon(Name, Area, ItemType) values('"
+                    +weapon.getName()+ "','" +weapon.getArea() + "','weapon')");
+            logger.info("Rows Affected : {}", rowsAffected);
+        } catch(DataAccessException e){
+            logger.error("Exception throw in jbdc: ", e);
+        }
+    }
 
     public void readFromTable() {
 
         try {
         List<Weapon> weapons = jdbcTemplate.query("SELECT * FROM weapon LIMIT 10",
              (result, rowNum) ->
-                        new Weapon(result.getInt("Id"),
+                        new Weapon(
                                     result.getString("Name"),
                                     result.getString("Area"),
                                     result.getString("ItemType")));
 
-        weapons.forEach(weapon -> logger.info("Weapon ID: {}, Name: {}", weapon.getId(), weapon.getName()));
+        weapons.forEach(weapon -> logger.info("Name: {}, Area{}, Item Type{}", weapon.getName(), weapon.getArea()));
 
         } catch(DataAccessException e){
             logger.error("Exception throw in jbdc: ", e);
